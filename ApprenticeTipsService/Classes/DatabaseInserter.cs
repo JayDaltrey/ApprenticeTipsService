@@ -67,7 +67,7 @@ namespace ApprenticeTipsService.Classes
             sql.Append($"legal = '{request.Contact.Legal}',");
             sql.Append($"protective = '{request.Contact.Protective}',");
             sql.Append($"sales = '{request.Contact.Sales}',");
-            sql.Append($"transport = '{request.Contact.Transport}'");
+            sql.Append($"transport = '{request.Contact.Transport} '");
             sql.Append($"where id = {currentId} ");
             sql.Append("select scope_identity()");
             connection = new SqlConnection(connectionstring);

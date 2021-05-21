@@ -1,11 +1,15 @@
 ﻿using ApprenticeTipsService.ApiKeyAuth;
 using ApprenticeTipsService.Classes;
+using ApprenticeTipsService.Models;
 using ApprenticeTipsService.RequestResponseModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ApprenticeTipsService.Controllers
@@ -15,8 +19,8 @@ namespace ApprenticeTipsService.Controllers
     [ApiKeyAuth]
     public class ApprenticeshipController : ControllerBase
     {
-        [HttpPost("AddContactDetailsToDB")]
-        public void AddContactDetailsToDB(DetailAdderRequest request)
+        [HttpPost("AddDetailsToDB")]
+        public void AddAADetailsToDB(DetailAdderRequest request)
         {
             var DBinserter = new DatabaseInserter();
 
@@ -24,5 +28,17 @@ namespace ApprenticeTipsService.Controllers
             DBinserter.InsertCheckboxData(request, currentId);
 
         }
+
+        [HttpPost("GetApprenticeships")]
+        public ApprenticeshipFinderResponse GetApprenticeships(ApprenticeshipFinderRequest request)
+        {
+            var response = new ApprenticeshipFinderResponse();
+            var retriever = new DatabaseRetriever();
+
+            response.Apprenticeships = retriever.GetMultipleApprenticeships(request);
+
+            return response;
+        }
+
     }
 }
